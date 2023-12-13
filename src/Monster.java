@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-class Monster implements ISaveable {
+public class Monster implements ISaveable {
     private String name;
     private int hitPoints;
     private int strength;
@@ -12,7 +13,20 @@ class Monster implements ISaveable {
         this.strength = strength;
     }
 
-    // Getters for all fields
+    public String getName() {
+        return name;
+    }
+
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+
+    public int getStrength() {
+        return strength;
+    }
+
 
     public List<String> write() {
         List<String> values = new ArrayList<>();
@@ -28,6 +42,20 @@ class Monster implements ISaveable {
             hitPoints = Integer.parseInt(values.get(1));
             strength = Integer.parseInt(values.get(2));
         }
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Monster monster = (Monster) obj;
+        return hitPoints == monster.hitPoints &&
+                strength == monster.strength &&
+                Objects.equals(name, monster.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, hitPoints, strength);
     }
 
     @Override
